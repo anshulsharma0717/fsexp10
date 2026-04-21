@@ -1,7 +1,11 @@
 Student Details
+
 Name: Anshul Sharma
+
 UID: 24BDA70368
+
 Group: 24BDS-3(B)
+
 Title
 
 Full Stack Blog Platform (MERN Stack Application)
@@ -18,6 +22,7 @@ Add and delete comments on posts
 Protected routes for authenticated users
 RESTful API integration with frontend
 Relational data handling (User → Post → Comment)
+
 Database Schema
 User:    { username, email, password, bio }
 Post:    { title, content, tags, author → User }
