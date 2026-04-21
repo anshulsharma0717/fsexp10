@@ -11,10 +11,15 @@ export default function PostDetail() {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
   const [error, setError] = useState('');
+  const [pageError, setPageError] = useState('');
 
   useEffect(() => {
-    api.get(`/posts/${id}`).then(({ data }) => setPost(data));
-    api.get(`/comments/${id}`).then(({ data }) => setComments(data));
+    api.get(`/posts/${id}`)
+      .then(({ data }) => setPost(data))
+      .catch(() => setPageError('Post not found or server is offline.'));
+    api.get(`/comments/${id}`)
+      .then(({ data }) => setComments(data))
+      .catch(() => {});
   }, [id]);
 
   const handleDelete = async () => {
@@ -40,6 +45,7 @@ export default function PostDetail() {
     setComments(comments.filter(c => c._id !== cid));
   };
 
+  if (pageError) return <div className="center">{pageError}</div>;
   if (!post) return <div className="center">Loading...</div>;
 
   return (
@@ -79,7 +85,6 @@ export default function PostDetail() {
         ) : (
           <p><a href="/login">Login</a> to leave a comment.</p>
         )}
-
         <div className="comments-list">
           {comments.map(c => (
             <div key={c._id} className="comment-card">
